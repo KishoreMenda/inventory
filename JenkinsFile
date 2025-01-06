@@ -44,9 +44,12 @@ pipeline {
             }
         }
 
-        stage('Deploy Application') {
+        stage('Deploy to Kubernetes') {
             steps {
-                sh "docker run -d -p 8083:8083 ${DOCKER_IMAGE_NAME}"
+                sh '''
+                kubectl apply -f k8s/inventory-deployment.yaml
+                kubectl apply -f k8s/inventory-service.yaml
+                '''
             }
         }
     }
