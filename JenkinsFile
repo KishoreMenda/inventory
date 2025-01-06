@@ -43,15 +43,6 @@ pipeline {
                 sh "docker push ${DOCKER_IMAGE_NAME}"
             }
         }
-
-        stage('Deploy to Kubernetes') {
-            steps {
-                sh '''
-                kubectl apply -f k8s/inventory-deployment.yaml
-                kubectl apply -f k8s/inventory-service.yaml
-                '''
-            }
-        }
     }
 
     post {
